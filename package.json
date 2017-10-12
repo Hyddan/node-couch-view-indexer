@@ -1,6 +1,6 @@
 {
   "name": "node-couch-view-indexer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CouchDb view indexer for Node.Js using node-couch",
   "scripts": {
     "compile": "grunt compile",

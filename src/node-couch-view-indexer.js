@@ -2,7 +2,9 @@ module.exports = {
     index: function (options) {
         var _fs = require('fs'),
                 _nodeCouch = require('node-couch'),
-                _options = Object.assign({}, options),
+                _options = Object.assign({
+                    logExceptions: false
+                }, options),
                 _couchDb = new _nodeCouch.Client().initialize(_options.nodeCouch),
                 _indexDatabaseViews = function (database, callback) {
                     _couchDb.Database.select(database)
@@ -16,7 +18,7 @@ module.exports = {
                         }, function (error, response) {
                             if (error) {
                                 console.log(Color.red('Failed to get design documents for database: ' + database));
-                                console.log(error);
+                                _options.logExceptions && console.log(error);
 
                                 return;
                             }
@@ -54,7 +56,7 @@ module.exports = {
                                         .View.query(q, function (queryError) {
                                             if (queryError && -1 === (queryError.message || '').indexOf('timed out')) {
                                                 console.log(Color.red('Failed to query view: ' + q.view + ' in design document: ' + q.designDocumentId + ' in database: ' + database));
-                                                console.log(queryError);
+                                                _options.logExceptions && console.log(queryError);
                                             }
                                             else {
                                                 console.log(Color.green('Queried view: ' + q.view + ' in design document: ' + q.designDocumentId + ' in database: ' + database));
@@ -88,7 +90,7 @@ module.exports = {
         _couchDb.Server.databases(function (error, response) {
             if (error) {
                 console.log(Color.red('Failed to get all databases'));
-                console.log(error);
+                _options.logExceptions && console.log(error);
 
                 return;
             }

@@ -14,6 +14,7 @@ npm install node-couch-view-indexer --save
 ```js
 var indexer = require('node-couch-view-indexer'),
         options = {
+            logExceptions: false,
             nodeCouch: { // node-couch options
                credentials: {
                    userName: 'user',
@@ -36,6 +37,9 @@ indexer.index(options);
 Indexes CouchDb database views.
 
 ### Options
+#### .logExceptions
+`Boolean`. `Optional`. Whether or not to log exception data. Defaults to `false`.
+
 #### .nodeCouch
 `Object`. `Required`. See [node-couch](https://npmjs.com/package/node-couch) initialization data.
 
@@ -47,4 +51,5 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+ * 2017-10-12   v1.0.1   Disabled exception logging by default.
  * 2017-10-12   v1.0.0   Initial version.
